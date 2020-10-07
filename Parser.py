@@ -16,21 +16,20 @@ def reader(filename, pattern):
                         out.write(line)
                 f.close()
         elif os.path.isdir(filename):
-            for i in tqdm(range(0, len(os.listdir(filename))), desc="Files read:"):
-                for file in os.listdir(filename):
-                    if os.path.splitext(file)[1] == '.log':
-                        out.write('filename: ' + file + '\n')
-                        f = open(filename + '\\' + file, 'r')
-                        for line in f:
-                            if re.search(pattern, line):
-                                out.write(line)
-                        f.close()
+            for file in tqdm(os.listdir(filename)):
+                if os.path.splitext(file)[1] == '.log':
+                    out.write('filename: ' + file + '\n')
+                    f = open(filename + '\\' + file, 'r')
+                    for line in f:
+                        if re.search(pattern, line):
+                            out.write(line)
+                    f.close()
         out.close()
     else:
         print('file not found')
 
 
-reader(sys.argv[1], sys.argv[2])
+#reader(sys.argv[1], sys.argv[2])
 # py Parser.py D:\Logs Error:
 
-#reader("D:\Logs", "VERBOSE")
+reader("D:\Logs", "VERBOSE")
