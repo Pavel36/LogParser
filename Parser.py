@@ -1,9 +1,7 @@
 import sys
 import os
 import re
-import time
 from tqdm import tqdm
-
 
 def reader(filename, pattern):
     if os.path.exists(filename):
@@ -29,7 +27,7 @@ def reader(filename, pattern):
         print('file not found')
 
 
-#reader(sys.argv[1], sys.argv[2])
+reader(sys.argv[1], sys.argv[2])
 # py Parser.py D:\Logs Error:
 
-reader("D:\Logs", "VERBOSE")
+#reader("D:\Logs", "VERBOSE")
