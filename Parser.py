@@ -1,29 +1,31 @@
 import sys
 import os
+import re
 
 
-def reader():
-    if os.path.exists(sys.argv[1]):
-        if os.path.isfile(sys.argv[1]):
-            if os.path.splitext(sys.argv[1])[1] == '.log':
-                f = open(sys.argv[1], 'r')
+def reader(filename, pattern):
+    if os.path.exists(filename):
+        if os.path.isfile(filename):
+            if os.path.splitext(filename)[1] == '.log':
+                f = open(filename, 'r')
                 for line in f:
-                    print(line)
-        elif os.path.isdir(sys.argv[1]):
-            for file in os.listdir(sys.argv[1]):
+                    if re.search(pattern, line):
+                        print(line)
+                f.close()
+        elif os.path.isdir(filename):
+            for file in os.listdir(filename):
                 if os.path.splitext(file)[1] == '.log':
                     print('filename=', file)
-                    f = open(sys.argv[1] + '\\' + file, 'r')
+                    f = open(filename + '\\' + file, 'r')
                     for line in f:
-                        print(line)
+                        if re.search(pattern, line):
+                            print(line)
                     f.close()
-
     else:
         print('file not found')
 
 
-reader()
+#reader(sys.argv[1], sys.argv[2])
+# py Parser.py D:\Logs Error:
 
-# f = open(sys.argv[1], 'r')
-# for line in f:
-#     print(line)
+reader("D:\Logs", "VERBOSE")
